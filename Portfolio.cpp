@@ -1,24 +1,19 @@
-//
-// Created by hvalle on 12/17/2018.
-//
-
 #include "Portfolio.h"
 using namespace std;
-Portfolio::Portfolio()
-        : isEmpty_{true}
-        , shareCount_{0u} {
+bool Portfolio::IsEmpty() const { 
+   return 0 == holdings_.size(); 
 }
-
-
-bool Portfolio::IsEmpty() const {
-    return 0 == shareCount_;
-}
-
 void Portfolio::Purchase(const string& symbol, unsigned int shareCount) {
-    isEmpty_ = false;
-    shareCount_ = shareCount;
+   if (0 == shareCount) throw InvalidPurchaseException();
+   holdings_[symbol] = shareCount + ShareCount(symbol);
+}
+void Portfolio::Sell(const std::string& symbol, unsigned int shareCount) {
+   if (shareCount > ShareCount(symbol)) throw InvalidSellException();
+   holdings_[symbol] = ShareCount(symbol) - shareCount;
 }
 
 unsigned int Portfolio::ShareCount(const string& symbol) const {
-    return shareCount_;
+   auto it = holdings_.find(symbol);
+   if (it == holdings_.end()) return 0;
+   return it->second;
 }
