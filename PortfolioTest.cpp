@@ -59,3 +59,13 @@ TEST_F(APortfolio, ThrowsWhenSellingMoreSharesThanPurchased)
 {
     ASSERT_THROW(portfolio_.Sell(SAMSUNG, 1), InvalidSellException);
 }
+
+TEST_F(APortfolio, AnswersThePurchaseRecordsForASinglePurchase)
+{
+    portfolio_.Purchase(SAMSUNG, 5);
+    auto purchases = portfolio_.Purchases(SAMSUNG);
+    auto purchase = purchases[0];
+
+    ASSERT_THAT(purchase.ShareCount, Eq(5));
+    ASSERT_THAT(purchase.Date, Eq(Portfolio::FIXED_PURCHASE_DATE));
+}
