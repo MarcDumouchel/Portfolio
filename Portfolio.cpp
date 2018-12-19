@@ -7,10 +7,12 @@ const date Portfolio::FIXED_PURCHASE_DATE(date(2018, Dec, 19));
 bool Portfolio::IsEmpty() const { 
    return 0 == holdings_.size(); 
 }
-void Portfolio::Purchase(const string& symbol, unsigned int shareCount) {
+void Portfolio::Purchase(const string& symbol, unsigned int shareCount,
+        const date& transactionDate)
+{
    if (0 == shareCount) throw InvalidPurchaseException();
    holdings_[symbol] = shareCount + ShareCount(symbol);
-   purchases_.push_back(PurchaseRecord(shareCount, FIXED_PURCHASE_DATE));
+   purchases_.push_back(PurchaseRecord(shareCount, transactionDate));
 }
 void Portfolio::Sell(const std::string& symbol, unsigned int shareCount) {
    if (shareCount > ShareCount(symbol)) throw InvalidSellException();
