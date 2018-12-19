@@ -8,7 +8,7 @@ include_directories(googletest/include googlemock/include)
 set(CMAKE_CXX_STANDARD 11)          # C++ V11
 set(CMAKE_CXX_FLAGS "${CMAXE_CXX_FLAGS} -Wall")
 
-set(SRCS main.cpp Portfolio.cpp Portfolio.h PortfolioTest.cpp)
+set(SRCS main.cpp Portfolio.cpp Portfolio.h PortfolioTest.cpp PurchaseRecord.h DateTestConsonants.h)
 
 add_executable(test ${SRCS})
 target_link_libraries(test pthread)
